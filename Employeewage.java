@@ -1,70 +1,57 @@
 package com.day08.java;
+
 import java.util.Random;
-class Employee {
-	static final int IS_FULL_TIME = 1; // constants
-	static final int IS_PART_TIME = 2; // constants
-	static final int EMP_WAGE_PER_DAY = 20; // constants
-	static final int EMP_WAGE_FOR_MONTH = 20; // constants
-	static final int TOTAL_WRK_HRS_MONTH = 100; // constants
 
-	/*
-	 * generating random numbers with in 3 using random functions
-	 */
-	public static int empCheck() {
-		Random random = new Random();// random is object
-		int empCheck = random.nextInt(3);
-		return empCheck;
-	}
-
-	/*
-	 * calculating employee work hours
-	 */
-	public static int empWrkHrs(int empCheck) {
-		int empWrkHrs;
-		switch (empCheck) {
-		case IS_FULL_TIME -> empWrkHrs = 8;
-		case IS_PART_TIME -> empWrkHrs = 4;
-		default -> empWrkHrs = 0;
-		}
-		return empWrkHrs;
-	}
-
-	// calculating employee wage per day
-	public static int empWage(int empWrkHrs) {
-		int empWage = empWrkHrs * EMP_WAGE_PER_DAY;
-		return empWage;
-	}
-
-	// calculating employee total salary
-	public static int totalEmpSalary() {
-		int day = 0;
-		int totalEmpSalary = 0;
-		int empWrkHrs = 0;
-		int empWage = 0;
-		int empCheck = 0;
-		int totalEmpWrkHrs = 0;
-		while (day < EMP_WAGE_FOR_MONTH && totalEmpWrkHrs < TOTAL_WRK_HRS_MONTH) {
-			empCheck = empCheck();
-			empWrkHrs = empWrkHrs(empCheck);
-			empWage = empWage(empWrkHrs);
-			totalEmpWrkHrs += empWrkHrs;
-			++day;
-			totalEmpSalary += empWage;
-		}
-		return totalEmpSalary;
-	}
-
-}
-
-/*
- * Main Class Main Methods
- */
 public class Employeewage {
-	public static void main(String[] args) {
-		int totalEmpSalary;
-		System.out.println("Welcome To Employee Wage Computation Using OOP's");
-		totalEmpSalary = Employee.totalEmpSalary();
-		System.out.println("totalEmpSalary = " + totalEmpSalary);
-		}
+	public static final int IS_PART_TIME = 1;
+	public static final int IS_FULL_TIME = 2;
 
+	private String company = "";
+	private int empRatePerHour = 0;
+	private int numOfWorkingDays = 0;
+	private int maxHoursPerMonth = 0;
+
+	public void EmployeeWage(String company, int empRatePerHour, int numOfWorkingDays, int maxHoursPerMonth) {
+		super();
+		this.company = company;
+		this.empRatePerHour = empRatePerHour;
+		this.numOfWorkingDays = numOfWorkingDays;
+		this.maxHoursPerMonth = maxHoursPerMonth;
+	}
+
+	public static void totalEmpWage() {
+		EmployeeWage Bazar = new EmployeeWage("Bazaar", 40, 20, 100);
+		Random random = new Random();
+		int totalWorkingDays = 0;
+		int totalWorkingHours = 0;
+		int empWage = 0;
+		int totalEmpWage = 0;
+
+		while (totalWorkingDays < Bazar.numOfWorkingDays && totalWorkingHours < Bazar.maxHoursPerMonth) {
+			totalWorkingDays++;
+			int empCheck = random.nextInt(3);
+			int empHrs = 0;
+			switch (empCheck) {
+
+			case IS_PART_TIME -> empHrs = 4;
+
+			case IS_FULL_TIME -> empHrs = 8;
+
+			default -> empHrs = 0;
+
+			}
+			totalWorkingHours = empHrs + totalWorkingHours;
+			empWage = empHrs * Bazar.empRatePerHour;
+			System.out.println("day " + totalWorkingDays + " = " + empWage);
+			totalEmpWage = empWage + totalEmpWage;
+
+		}
+		System.out.println("salary of " + Bazar.company + " employee is " + totalEmpWage);
+
+	}
+
+	public static void main(String[] args) {
+		totalEmpWage();
+
+	}
 }
